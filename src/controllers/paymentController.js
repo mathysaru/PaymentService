@@ -3,15 +3,10 @@ const Payment = require('../models/paymentModel');
 exports.initiatePayment = async (req, res) => {
     const { userId, amount } = req.body;
     try {
-        // Create payment with default status as 'Initiated'
         let payment = await Payment.create({ userId, amount });
-
-        // Simulate status update to 'Completed' (e.g., after processing)
-        // Add a delay here if needed to represent payment processing
         payment.status = 'Completed';
         await payment.save();
-
-        res.status(201).json(payment); // Return updated payment object
+        res.status(201).json(payment);  
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
